@@ -1,0 +1,12 @@
+[package]
+name = "serde-enum-derive"
+version = "0.0.1"
+authors = ["enfipy"]
+edition = "2018"
+
+[dependencies]
+quote = "^0.3"
+syn = "^0.11"
+
+[lib]
+proc-macro = true
