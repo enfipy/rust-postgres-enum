@@ -3,6 +3,13 @@ name = "serde-enum-derive"
 version = "0.0.1"
 authors = ["enfipy"]
 edition = "2018"
+license = "MIT"
+description = "Serde enum primitive derive"
+readme = "README.md"
+homepage = "https://github.com/enfipy/serde-enum-derive"
+repository = "https://github.com/enfipy/serde-enum-derive.git"
+keywords = ["derive", "enum", "fromprimitive", "primitive", "sql"]
+categories = ["rust-patterns"]
 
 [dependencies]
 quote = "^0.3"
