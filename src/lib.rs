@@ -12,9 +12,9 @@ use quote::quote;
 fn impl_serde_enum_derive(ast: &syn::DeriveInput) -> quote::Tokens {
     let name = &ast.ident;
     quote! {
-        impl FromSql for #name {
+        impl postgres::types::FromSql for #name {
             fn from_sql(_: &Type, raw: &[u8]) -> Result<Self, Box<dyn Error + Sync + Send>> {
-                let value = types::int8_from_sql(raw)?;
+                let value = postgres_protocol::types::int8_from_sql(raw)?;
                 Self::from_i64(value).ok_or(Box::from("Failed to deserialize enum"))
             }
 
@@ -23,13 +23,13 @@ fn impl_serde_enum_derive(ast: &syn::DeriveInput) -> quote::Tokens {
             }
         }
 
-        impl ToSql for #name {
+        impl postgres::types::ToSql for #name {
             fn to_sql(&self, _: &Type, out: &mut Vec<u8>) -> Result<IsNull, Box<dyn Error + Sync + Send>>
             where
                 Self: Sized,
             {
-                let res = self.to_i64().ok_or(Box::from("Failed to serialize enum"))?;
-                types::int8_to_sql(res, out);
+                let res = self.to_i64().ok_or::<Box<dyn Error + Sync + Send>>(Box::from("Failed to serialize enum"))?;
+                postgres_protocol::types::int8_to_sql(res, out);
                 Ok(IsNull::No)
             }
 
