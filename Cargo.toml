@@ -1,6 +1,6 @@
 [package]
 name = "serde-enum-derive"
-version = "0.0.1"
+version = "0.0.2"
 authors = ["enfipy"]
 edition = "2018"
 license = "MIT"
