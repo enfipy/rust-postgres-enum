@@ -1,3 +1,3 @@
-# Serde enum derive
+# Postgres enum
 
-This is a custom derive, using procedural macros, implementation of ToSql and FromSql for primitive Enums.
+This crate is for the convenient auto implementation of ToSql and FromSql for enums.

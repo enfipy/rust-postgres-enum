@@ -1,0 +1,13 @@
+[package]
+name = "postgres-enum-derive"
+version = "0.1.0"
+authors = ["enfipy <enfipy@gmail.com>", "olvyko <olvyko@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+syn = "1.0"
+proc-macro2 = "1.0"
+quote = "1.0"
+
+[lib]
+proc-macro = true
