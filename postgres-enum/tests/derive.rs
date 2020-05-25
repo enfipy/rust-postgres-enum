@@ -1,5 +1,5 @@
+use num_enum::TryFromPrimitive;
 use postgres_enum::FromToSqlEnum;
-use postgres_enum::num_enum::TryFromPrimitive;
 
 #[derive(Clone, Copy, Debug, TryFromPrimitive, FromToSqlEnum)]
 #[repr(i16)]

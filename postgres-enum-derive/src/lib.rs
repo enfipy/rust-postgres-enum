@@ -1,4 +1,3 @@
-#![recursion_limit = "256"]
 extern crate proc_macro;
 
 use proc_macro2::TokenStream;
@@ -7,36 +6,36 @@ use quote::quote;
 fn impl_postgres_enum_derive(input: syn::DeriveInput) -> Result<TokenStream, syn::Error> {
     let name = &input.ident;
     let out = quote! {
-        impl<'a> postgres_types::FromSql<'a> for #name {
+        impl<'a> postgres_enum::postgres_types::FromSql<'a> for #name {
             fn from_sql(
-                _: &postgres_types::Type,
+                _: &postgres_enum::postgres_types::Type,
                 raw: &[u8],
             ) -> std::result::Result<Self, Box<dyn std::error::Error + Sync + Send>> {
                 use std::convert::TryFrom;
-                let value = postgres_protocol::types::int2_from_sql(raw)?;
+                let value = postgres_enum::postgres_protocol::types::int2_from_sql(raw)?;
                 Self::try_from(value).map_err(|_| Box::from("Failed to deserialize enum"))
             }
 
-            postgres_types::accepts!(INT2);
+            postgres_enum::postgres_types::accepts!(INT2);
         }
 
         impl postgres_types::ToSql for #name {
             fn to_sql(
                 &self,
-                _: &postgres_types::Type,
-                out: &mut bytes::BytesMut,
-            ) -> std::result::Result<postgres_types::IsNull, Box<dyn std::error::Error + Sync + Send>>
+                _: &postgres_enum::postgres_types::Type,
+                out: &mut postgres_enum::bytes::BytesMut,
+            ) -> std::result::Result<postgres_enum::postgres_types::IsNull, Box<dyn std::error::Error + Sync + Send>>
             where
                 Self: Sized,
             {
                 let res = *self as i16;
-                postgres_protocol::types::int2_to_sql(res, out);
-                Ok(postgres_types::IsNull::No)
+                postgres_enum::postgres_protocol::types::int2_to_sql(res, out);
+                Ok(postgres_enum::postgres_types::IsNull::No)
             }
 
-            postgres_types::accepts!(INT2);
+            postgres_enum::postgres_types::accepts!(INT2);
 
-            postgres_types::to_sql_checked!();
+            postgres_enum::postgres_types::to_sql_checked!();
         }
     };
     Ok(out)

@@ -6,7 +6,9 @@ edition = "2018"
 
 [dependencies]
 postgres-enum-derive = { path = "../postgres-enum-derive" }
-num_enum = "0.5"
 postgres-types = "0.1.1"
 postgres-protocol = "0.5"
 bytes = "0.5.4"
+
+[dev-dependencies]
+num_enum = "0.5"
