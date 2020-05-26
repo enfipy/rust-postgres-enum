@@ -19,7 +19,7 @@ fn impl_postgres_enum_derive(input: syn::DeriveInput) -> Result<TokenStream, syn
             postgres_enum::postgres_types::accepts!(INT2);
         }
 
-        impl postgres_types::ToSql for #name {
+        impl postgres_enum::postgres_types::ToSql for #name {
             fn to_sql(
                 &self,
                 _: &postgres_enum::postgres_types::Type,
